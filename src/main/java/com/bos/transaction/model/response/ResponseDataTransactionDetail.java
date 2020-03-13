@@ -11,9 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDataTransactionDetail {
-    private int id_transaction;
-    private String buyer_name;
-    private double total_payment;
-    private String transaction_date;
-    private ProductOrdered product_ordered;
+//    private String buyer_name;
+    private String address_detail;
+    private String total_payment;
+    private String order_time;
+    private int quantity;
+    private double sell_price;
 }

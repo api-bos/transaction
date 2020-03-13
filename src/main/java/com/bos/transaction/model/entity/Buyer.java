@@ -1,9 +1,6 @@
 package com.bos.transaction.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -19,4 +16,7 @@ public class Buyer {
     private int id_buyer;
     private String buyer_name;
     private String phone;
+
+    @OneToOne(mappedBy = "buyer")
+    private Transaction transaction;
 }
