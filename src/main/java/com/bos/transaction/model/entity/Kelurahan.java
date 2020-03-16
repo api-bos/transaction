@@ -1,0 +1,22 @@
+package com.bos.transaction.model.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "kelurahan")
+public class Kelurahan {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_kelurahan;
+    private int id_kecamatan;
+    private String kelurahan_name;
+}

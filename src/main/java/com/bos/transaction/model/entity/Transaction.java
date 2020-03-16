@@ -28,6 +28,7 @@ public class Transaction {
     @JoinColumn(name = "id_buyer", referencedColumnName = "id_buyer")
     private Buyer buyer;
 
-    @OneToOne
-    private TransactionDetail transaction_detail;
+//    @OneToOne
+
+//    private TransactionDetail transaction_detail;
 }

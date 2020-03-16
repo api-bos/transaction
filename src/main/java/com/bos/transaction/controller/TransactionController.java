@@ -1,8 +1,7 @@
 package com.bos.transaction.controller;
 
 import bca.bit.proj.library.base.ResultEntity;
-import com.bos.transaction.model.response.ResponseDataTransaction;
-import com.bos.transaction.model.response.ResponseDataTransactionDetail;
+import com.bos.transaction.model.dao.TransactionDetailDao;
 import com.bos.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +17,13 @@ public class TransactionController {
     @Autowired
     TransactionService g_transactionService;
 
-    @GetMapping("/get/{id_seller}")
+    @GetMapping("/transaction/{id_seller}")
     public ResultEntity getAddress(@PathVariable("id_seller") int id_seller){
         return g_transactionService.getTransactions(id_seller);
     }
 
-    @GetMapping("getDetail/{id_transaction}")
-    public List<ResponseDataTransactionDetail> getDetail(@PathVariable("id_transaction") int id_transaction){
+    @GetMapping("transactionDetail/{id_transaction}")
+    public ResultEntity getDetail(@PathVariable("id_transaction") int id_transaction){
         return g_transactionService.getTransactionDetail(id_transaction);
     }
 }

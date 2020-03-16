@@ -1,20 +1,23 @@
 package com.bos.transaction.model.response;
 
-import com.bos.transaction.model.response.ProductOrdered;
+import com.bos.transaction.model.entity.Buyer;
+import com.bos.transaction.model.entity.TransactionDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDataTransactionDetail {
-//    private String buyer_name;
-    private String address_detail;
-    private String total_payment;
+    private int id_transaction;
     private String order_time;
-    private int quantity;
-    private double sell_price;
+    private String total_payment;
+    private String address;
+    private BuyerResponse buyer;
+    private ArrayList<TransactionDetailResponse> transaction_detail;
 }
