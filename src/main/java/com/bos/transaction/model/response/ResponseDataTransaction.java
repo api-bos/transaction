@@ -10,9 +10,8 @@ import lombok.*;
 @ToString
 public class ResponseDataTransaction {
     private int id_transaction;
-    private String buyer_name;
     private String order_time;
     private String total_payment;
     private int status;
-
+    private BuyerResponse buyer;
 }

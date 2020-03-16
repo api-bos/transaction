@@ -1,7 +1,5 @@
 package com.bos.transaction.model.response;
 
-import com.bos.transaction.model.entity.Buyer;
-import com.bos.transaction.model.entity.TransactionDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

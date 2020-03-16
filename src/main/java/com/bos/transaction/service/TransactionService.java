@@ -2,13 +2,13 @@ package com.bos.transaction.service;
 
 import bca.bit.proj.library.base.ResultEntity;
 import bca.bit.proj.library.enums.ErrorCode;
+import com.bos.transaction.model.dao.TransactionDao;
 import com.bos.transaction.model.dao.TransactionDetailDao;
 import com.bos.transaction.model.response.ProductResponse;
 import com.bos.transaction.model.response.BuyerResponse;
 import com.bos.transaction.model.response.ResponseDataTransaction;
 import com.bos.transaction.model.response.ResponseDataTransactionDetail;
 import com.bos.transaction.model.response.TransactionDetailResponse;
-import com.bos.transaction.repository.BuyerRepository;
 import com.bos.transaction.repository.TransactionDetailRepository;
 import com.bos.transaction.repository.TransactionRepository;
 import com.bos.transaction.repository.KelurahanRepository;
@@ -26,8 +26,6 @@ public class TransactionService {
     TransactionRepository g_transactionRepository;
     @Autowired
     TransactionDetailRepository g_transactionDetailRepository;
-    @Autowired
-    BuyerRepository g_buyerRepository;
 
     private String getAddress(int p_address){
         String tmp_address = g_kelurahanRepository.getAddressByKelurahanId(p_address);
@@ -46,16 +44,20 @@ public class TransactionService {
     public ResultEntity getTransactions(int p_sellerId){
         ResultEntity l_output = null;
         try {
-            List<ResponseDataTransaction> tmp_transactionList = g_transactionRepository.getResponseDataTransaction(p_sellerId);
+            List<TransactionDao> tmp_getTransactionList = g_transactionRepository.getTransactionBySellerId(p_sellerId);
             ArrayList<ResponseDataTransaction> tmp_transactionResponseList = new ArrayList<>();
-            for (int i=0; i<tmp_transactionList.size(); i++){
-                String tmp_orderTime = tmp_transactionList.get(i).getOrder_time().substring(0, 9);
+            for (int i=0; i<tmp_getTransactionList.size(); i++){
+                BuyerResponse tmp_buyer = new BuyerResponse();
+                tmp_buyer.setId_buyer(tmp_getTransactionList.get(i).getId_buyer());
+                tmp_buyer.setBuyer_name(tmp_getTransactionList.get(i).getBuyer_name());
+                tmp_buyer.setPhone(tmp_getTransactionList.get(i).getPhone());
+
                 ResponseDataTransaction tmp_responseDataTransaction = new ResponseDataTransaction();
-                tmp_responseDataTransaction.setId_transaction(tmp_transactionList.get(i).getId_transaction());
-                tmp_responseDataTransaction.setBuyer_name(tmp_transactionList.get(i).getBuyer_name());
-                tmp_responseDataTransaction.setOrder_time(tmp_orderTime);
-                tmp_responseDataTransaction.setTotal_payment(tmp_transactionList.get(i).getTotal_payment());
-                tmp_responseDataTransaction.setStatus(tmp_transactionList.get(i).getStatus());
+                tmp_responseDataTransaction.setId_transaction(tmp_getTransactionList.get(i).getId_transaction());
+                tmp_responseDataTransaction.setBuyer(tmp_buyer);
+                tmp_responseDataTransaction.setOrder_time(tmp_getTransactionList.get(i).getOrder_time().substring(0, 9));
+                tmp_responseDataTransaction.setTotal_payment(tmp_getTransactionList.get(i).getTotal_payment());
+                tmp_responseDataTransaction.setStatus(tmp_getTransactionList.get(i).getStatus());
 
                 tmp_transactionResponseList.add(tmp_responseDataTransaction);
 
