@@ -104,7 +104,7 @@ public class TransactionService {
                 tmp_transactionDetailResponse.setId_transaction_detail(tmp_getDetailList.get(i).getId_transaction_detail());
                 tmp_transactionDetailResponse.setQuantity(tmp_getDetailList.get(i).getQuantity());
                 tmp_transactionDetailResponse.setSell_price(String.valueOf(tmp_price));
-                tmp_transactionDetailResponse.setProductResponse(tmp_productResponse);
+                tmp_transactionDetailResponse.setProduct(tmp_productResponse);
 
                 tmp_transactionDetailResponseList.add(tmp_transactionDetailResponse);
             }

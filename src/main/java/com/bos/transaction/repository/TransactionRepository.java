@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
     @Query(value = "SELECT t.id_transaction AS id_transaction, t.order_time AS order_time, t.total_payment AS total_payment, t.status AS status," +
-            " b.id_buyer AS id_buyer, b.buyer_name AS buyer_name, b.phone AS phone\n" +
+            "CASE WHEN b.id_buyer IS NULL THEN 0 ELSE b.id_buyer END AS id_buyer, CASE WHEN b.buyer_name IS NULL THEN '' ELSE b.buyer_name END AS buyer_name, CASE WHEN b.phone IS NULL THEN '' ELSE b.phone END AS phone\n" +
             "FROM transaction AS t \n" +
-            "JOIN buyer AS b\n" +
+            "LEFT JOIN buyer AS b\n" +
             "ON t.id_buyer = b.id_buyer\n" +
             "WHERE id_seller = :id_seller ORDER BY t.order_time DESC", nativeQuery = true)
     List<TransactionDao> getTransactionBySellerId(@Param("id_seller") int id_seller);

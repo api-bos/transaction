@@ -13,5 +13,5 @@ public class TransactionDetailResponse {
     private int id_transaction_detail;
     private int quantity;
     private String sell_price;
-    private ProductResponse productResponse;
+    private ProductResponse product;
 }
