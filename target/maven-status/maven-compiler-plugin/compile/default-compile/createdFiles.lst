@@ -1,9 +1,10 @@
+com\bos\transaction\model\dao\OfflineTransactionDao.class
 com\bos\transaction\model\entity\Kelurahan.class
 com\bos\transaction\model\response\ResponseDataTransaction.class
-com\bos\transaction\model\dao\TransactionDao.class
 com\bos\transaction\model\entity\Transaction.class
 com\bos\transaction\model\response\ProductResponse.class
 com\bos\transaction\model\response\ResponseDataTransactionDetail.class
+com\bos\transaction\model\request\OrderShippedRequest.class
 com\bos\transaction\model\response\TransactionDetailResponse.class
 com\bos\transaction\service\TransactionService.class
 com\bos\transaction\repository\TransactionRepository.class
@@ -14,4 +15,5 @@ com\bos\transaction\model\entity\TransactionDetail.class
 com\bos\transaction\TransactionApplication.class
 com\bos\transaction\model\dao\TransactionDetailDao.class
 com\bos\transaction\model\response\BuyerResponse.class
+com\bos\transaction\model\dao\OnlineTransactioinDao.class
 com\bos\transaction\controller\TransactionController.class

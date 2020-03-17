@@ -2,8 +2,10 @@ package com.bos.transaction.service;
 
 import bca.bit.proj.library.base.ResultEntity;
 import bca.bit.proj.library.enums.ErrorCode;
-import com.bos.transaction.model.dao.TransactionDao;
+import com.bos.transaction.model.dao.OfflineTransactionDao;
+import com.bos.transaction.model.dao.OnlineTransactioinDao;
 import com.bos.transaction.model.dao.TransactionDetailDao;
+import com.bos.transaction.model.request.OrderShippedRequest;
 import com.bos.transaction.model.response.ProductResponse;
 import com.bos.transaction.model.response.BuyerResponse;
 import com.bos.transaction.model.response.ResponseDataTransaction;
@@ -15,6 +17,7 @@ import com.bos.transaction.repository.KelurahanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +44,10 @@ public class TransactionService {
         return tmp_address;
     }
 
-    public ResultEntity getTransactions(int p_sellerId){
+    public ResultEntity getOnlineTransactions(int p_sellerId){
         ResultEntity l_output = null;
         try {
-            List<TransactionDao> tmp_getTransactionList = g_transactionRepository.getTransactionBySellerId(p_sellerId);
+            List<OnlineTransactioinDao> tmp_getTransactionList = g_transactionRepository.getOnlineTransactionBySellerId(p_sellerId);
             ArrayList<ResponseDataTransaction> tmp_transactionResponseList = new ArrayList<>();
             for (int i=0; i<tmp_getTransactionList.size(); i++){
                 BuyerResponse tmp_buyer = new BuyerResponse();
@@ -55,7 +58,7 @@ public class TransactionService {
                 ResponseDataTransaction tmp_responseDataTransaction = new ResponseDataTransaction();
                 tmp_responseDataTransaction.setId_transaction(tmp_getTransactionList.get(i).getId_transaction());
                 tmp_responseDataTransaction.setBuyer(tmp_buyer);
-                tmp_responseDataTransaction.setOrder_time(tmp_getTransactionList.get(i).getOrder_time().substring(0, 9));
+                tmp_responseDataTransaction.setOrder_time(tmp_getTransactionList.get(i).getOrder_time().substring(0, 10));
                 tmp_responseDataTransaction.setTotal_payment(tmp_getTransactionList.get(i).getTotal_payment());
                 tmp_responseDataTransaction.setStatus(tmp_getTransactionList.get(i).getStatus());
 
@@ -65,6 +68,31 @@ public class TransactionService {
             }
 
         }catch (Exception e){
+            l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
+        }
+
+        return l_output;
+    }
+
+    public ResultEntity getOfflineTransactions(int p_sellerId){
+        ResultEntity l_output = null;
+        try {
+            List<OfflineTransactionDao> tmp_getTransactionList = g_transactionRepository.getOfflineTransactionBySellerId(p_sellerId);
+            ArrayList<ResponseDataTransaction> tmp_transactionResponseList = new ArrayList<>();
+            for (int i=0; i<tmp_getTransactionList.size(); i++){
+                ResponseDataTransaction tmp_responseDataTransaction = new ResponseDataTransaction();
+                tmp_responseDataTransaction.setId_transaction(tmp_getTransactionList.get(i).getId_transaction());
+                tmp_responseDataTransaction.setOrder_time(tmp_getTransactionList.get(i).getOrder_time().substring(0, 10));
+                tmp_responseDataTransaction.setTotal_payment(tmp_getTransactionList.get(i).getTotal_payment());
+                tmp_responseDataTransaction.setStatus(tmp_getTransactionList.get(i).getStatus());
+
+                tmp_transactionResponseList.add(tmp_responseDataTransaction);
+
+                l_output = new ResultEntity(tmp_transactionResponseList, ErrorCode.BIT_000);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
             l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
         }
 
@@ -81,6 +109,7 @@ public class TransactionService {
             String tmp_totalPayment = tmp_getDetailList.get(0).getTotal_payment();
             String tmp_fullAddress = tmp_getDetailList.get(0).getAddress_detail() + ", " + getAddress(tmp_getDetailList.get(0).getId_kelurahan());
             String tmp_orderTime = tmp_getDetailList.get(0).getOrder_time();
+            String tmp_shippingCode = tmp_getDetailList.get(0).getShipping_code();
 
             //Set buyer
             BuyerResponse tmp_buyer = new BuyerResponse();
@@ -113,14 +142,34 @@ public class TransactionService {
             ResponseDataTransactionDetail tmp_responseDataTransactionDetail = new ResponseDataTransactionDetail();
             tmp_responseDataTransactionDetail.setId_transaction(tmp_transactionId);
             tmp_responseDataTransactionDetail.setTotal_payment(tmp_totalPayment);
-            tmp_responseDataTransactionDetail.setOrder_time(tmp_orderTime.substring(0, 9));
+            tmp_responseDataTransactionDetail.setOrder_time(tmp_orderTime.substring(0, 10));
             tmp_responseDataTransactionDetail.setAddress(tmp_fullAddress);
+            tmp_responseDataTransactionDetail.setShipping_code(tmp_shippingCode);
             tmp_responseDataTransactionDetail.setBuyer(tmp_buyer);
             tmp_responseDataTransactionDetail.setTransaction_detail(tmp_transactionDetailResponseList);
 
             l_output = new ResultEntity(tmp_responseDataTransactionDetail, ErrorCode.BIT_000);
 
         }catch (Exception e){
+            e.printStackTrace();
+            l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
+        }
+
+        return l_output;
+    }
+
+    public ResultEntity updateOrderShipped(OrderShippedRequest p_orderShipped){
+        ResultEntity l_output;
+
+        try {
+            Timestamp tmp_shippingTime = new Timestamp(System.currentTimeMillis());
+
+            g_transactionRepository.updateOrderShipped(p_orderShipped.getShipping_code(), p_orderShipped.getShipping_fee(), tmp_shippingTime, p_orderShipped.getId_transaction());
+
+            l_output = new ResultEntity("Y", ErrorCode.BIT_000);
+
+        }catch (Exception e){
+            e.printStackTrace();
             l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
         }
 

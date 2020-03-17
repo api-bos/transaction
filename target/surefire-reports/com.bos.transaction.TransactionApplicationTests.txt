@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.bos.transaction.TransactionApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.74 s - in com.bos.transaction.TransactionApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.317 s - in com.bos.transaction.TransactionApplicationTests

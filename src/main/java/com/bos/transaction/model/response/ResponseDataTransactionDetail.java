@@ -16,6 +16,7 @@ public class ResponseDataTransactionDetail {
     private String order_time;
     private String total_payment;
     private String address;
+    private String shipping_code;
     private BuyerResponse buyer;
     private ArrayList<TransactionDetailResponse> transaction_detail;
 }

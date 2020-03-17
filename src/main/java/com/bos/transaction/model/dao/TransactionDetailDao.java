@@ -14,4 +14,5 @@ public interface TransactionDetailDao {
     String getProduct_name();
     int getQuantity();
     String getSell_price();
+    String getShipping_code();
 }
