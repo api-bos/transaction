@@ -12,5 +12,4 @@ import lombok.Setter;
 public class OrderShippedRequest {
     private int id_transaction;
     private String shipping_code;
-    private double shipping_fee;
 }

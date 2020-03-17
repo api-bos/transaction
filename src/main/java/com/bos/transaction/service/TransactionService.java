@@ -164,7 +164,7 @@ public class TransactionService {
         try {
             Timestamp tmp_shippingTime = new Timestamp(System.currentTimeMillis());
 
-            g_transactionRepository.updateOrderShipped(p_orderShipped.getShipping_code(), p_orderShipped.getShipping_fee(), tmp_shippingTime, p_orderShipped.getId_transaction());
+            g_transactionRepository.updateOrderShipped(p_orderShipped.getShipping_code(), tmp_shippingTime, p_orderShipped.getId_transaction());
 
             l_output = new ResultEntity("Y", ErrorCode.BIT_000);
 
