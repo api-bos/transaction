@@ -3,8 +3,9 @@ package com.bos.transaction.service;
 import bca.bit.proj.library.base.ResultEntity;
 import bca.bit.proj.library.enums.ErrorCode;
 import com.bos.transaction.model.dao.OfflineTransactionDao;
+import com.bos.transaction.model.dao.OfflineTransactionDetailDao;
 import com.bos.transaction.model.dao.OnlineTransactioinDao;
-import com.bos.transaction.model.dao.TransactionDetailDao;
+import com.bos.transaction.model.dao.OnlineTransactionDetailDao;
 import com.bos.transaction.model.request.OrderShippedRequest;
 import com.bos.transaction.model.response.ProductResponse;
 import com.bos.transaction.model.response.BuyerResponse;
@@ -99,12 +100,12 @@ public class TransactionService {
         return l_output;
     }
 
-    public ResultEntity getTransactionDetail(int p_transactionId){
+    public ResultEntity getOnlineTransactionDetail(int p_transactionId){
         ResultEntity l_output;
 
         try {
             //Get transaction list
-            List<TransactionDetailDao> tmp_getDetailList = g_transactionDetailRepository.getTransactionDetail(p_transactionId);
+            List<OnlineTransactionDetailDao> tmp_getDetailList = g_transactionDetailRepository.getOnlineTransactionDetail(p_transactionId);
             int tmp_transactionId = tmp_getDetailList.get(0).getId_transaction();
             String tmp_totalPayment = tmp_getDetailList.get(0).getTotal_payment();
             String tmp_fullAddress = tmp_getDetailList.get(0).getAddress_detail() + ", " + getAddress(tmp_getDetailList.get(0).getId_kelurahan());
@@ -146,6 +147,54 @@ public class TransactionService {
             tmp_responseDataTransactionDetail.setAddress(tmp_fullAddress);
             tmp_responseDataTransactionDetail.setShipping_code(tmp_shippingCode);
             tmp_responseDataTransactionDetail.setBuyer(tmp_buyer);
+            tmp_responseDataTransactionDetail.setTransaction_detail(tmp_transactionDetailResponseList);
+
+            l_output = new ResultEntity(tmp_responseDataTransactionDetail, ErrorCode.BIT_000);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
+        }
+
+        return l_output;
+    }
+
+    public ResultEntity getOfflineTransactionDetail(int p_transactionId){
+        ResultEntity l_output;
+
+        try {
+            //Get transaction list
+            List<OfflineTransactionDetailDao> tmp_getDetailList = g_transactionDetailRepository.getOfflineTransactionDetail(p_transactionId);
+            int tmp_transactionId = tmp_getDetailList.get(0).getId_transaction();
+            String tmp_totalPayment = tmp_getDetailList.get(0).getTotal_payment();
+            String tmp_orderTime = tmp_getDetailList.get(0).getOrder_time();
+
+            //Set list of transaction_detail
+            ArrayList<TransactionDetailResponse> tmp_transactionDetailResponseList = new ArrayList<>();
+            for (int i=0; i<tmp_getDetailList.size(); i++){
+                //get sell_price*quantity
+                double tmp_price = Double.valueOf(tmp_getDetailList.get(i).getSell_price())*tmp_getDetailList.get(i).getQuantity();
+
+                //Set product
+                ProductResponse tmp_productResponse = new ProductResponse();
+                tmp_productResponse.setId_product(tmp_getDetailList.get(i).getId_product());
+                tmp_productResponse.setProduct_name(tmp_getDetailList.get(i).getProduct_name());
+
+                //Set transaction list
+                TransactionDetailResponse tmp_transactionDetailResponse = new TransactionDetailResponse();
+                tmp_transactionDetailResponse.setId_transaction_detail(tmp_getDetailList.get(i).getId_transaction_detail());
+                tmp_transactionDetailResponse.setQuantity(tmp_getDetailList.get(i).getQuantity());
+                tmp_transactionDetailResponse.setSell_price(String.valueOf(tmp_price));
+                tmp_transactionDetailResponse.setProduct(tmp_productResponse);
+
+                tmp_transactionDetailResponseList.add(tmp_transactionDetailResponse);
+            }
+
+            //Set response data of transaction detail
+            ResponseDataTransactionDetail tmp_responseDataTransactionDetail = new ResponseDataTransactionDetail();
+            tmp_responseDataTransactionDetail.setId_transaction(tmp_transactionId);
+            tmp_responseDataTransactionDetail.setTotal_payment(tmp_totalPayment);
+            tmp_responseDataTransactionDetail.setOrder_time(tmp_orderTime.substring(0, 10));
             tmp_responseDataTransactionDetail.setTransaction_detail(tmp_transactionDetailResponseList);
 
             l_output = new ResultEntity(tmp_responseDataTransactionDetail, ErrorCode.BIT_000);

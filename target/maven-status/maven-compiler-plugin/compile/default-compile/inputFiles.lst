@@ -3,7 +3,7 @@ C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\tran
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\repository\TransactionRepository.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\service\TransactionService.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\response\BuyerResponse.java
-C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\TransactionDetailDao.java
+C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\OfflineTransactionDetailDao.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\repository\TransactionDetailRepository.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\repository\KelurahanRepository.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\OfflineTransactionDao.java
@@ -12,6 +12,7 @@ C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\tran
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\response\TransactionDetailResponse.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\Address.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\OnlineTransactioinDao.java
+C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\OnlineTransactionDetailDao.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\response\ProductResponse.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\response\ResponseDataTransactionDetail.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\entity\Transaction.java

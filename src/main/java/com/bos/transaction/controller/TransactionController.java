@@ -23,9 +23,14 @@ public class TransactionController {
         return g_transactionService.getOfflineTransactions(id_seller);
     }
 
-    @GetMapping("transactionDetail/{id_transaction}")
-    public ResultEntity getTransactionDetail(@PathVariable("id_transaction") int id_transaction){
-        return g_transactionService.getTransactionDetail(id_transaction);
+    @GetMapping("onlineTransactionDetail/{id_transaction}")
+    public ResultEntity getOnlineTransactionDetail(@PathVariable("id_transaction") int id_transaction){
+        return g_transactionService.getOnlineTransactionDetail(id_transaction);
+    }
+
+    @GetMapping("offlineTransactionDetail/{id_transaction}")
+    public ResultEntity getOfflineTransactionDetail(@PathVariable("id_transaction") int id_transaction){
+        return g_transactionService.getOfflineTransactionDetail(id_transaction);
     }
 
     @PutMapping("orderShipped")
