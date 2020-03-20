@@ -13,6 +13,8 @@ C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\tran
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\Address.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\OnlineTransactioinDao.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\dao\OnlineTransactionDetailDao.java
+C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\repository\ProductRepository.java
+C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\entity\Product.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\response\ProductResponse.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\response\ResponseDataTransactionDetail.java
 C:\Users\U067726\Downloads\Github\transaction-service\src\main\java\com\bos\transaction\model\entity\Transaction.java

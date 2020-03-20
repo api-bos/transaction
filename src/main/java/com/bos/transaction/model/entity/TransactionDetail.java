@@ -18,6 +18,7 @@ public class TransactionDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_transaction_detail;
     private int id_transaction;
+    private int id_product;
     private int quantity;
     private double sell_price;
 }

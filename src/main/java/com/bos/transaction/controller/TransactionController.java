@@ -37,4 +37,9 @@ public class TransactionController {
     public ResultEntity updateOrderShipped(@RequestBody OrderShippedRequest p_orderShipped){
         return g_transactionService.updateOrderShipped(p_orderShipped);
     }
+
+    @DeleteMapping("transaction/{id_transaction}")
+    public ResultEntity deleteTransaction(@PathVariable("id_transaction") int id_transaction){
+        return g_transactionService.deleteTransaction(id_transaction);
+    }
 }

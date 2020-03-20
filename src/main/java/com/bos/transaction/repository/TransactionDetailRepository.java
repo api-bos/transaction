@@ -4,9 +4,11 @@ import com.bos.transaction.model.dao.OfflineTransactionDetailDao;
 import com.bos.transaction.model.entity.TransactionDetail;
 import com.bos.transaction.model.dao.OnlineTransactionDetailDao;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface TransactionDetailRepository extends JpaRepository<TransactionDetail, Integer> {
@@ -30,4 +32,12 @@ public interface TransactionDetailRepository extends JpaRepository<TransactionDe
             "LEFT JOIN product AS p ON td.id_product = p.id_product\n" +
             "WHERE td.id_transaction = :id_transaction", nativeQuery = true)
     List<OfflineTransactionDetailDao> getOfflineTransactionDetail(@Param("id_transaction") int id_transaction);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM transaction WHERE id_transasction = :id_transaction", nativeQuery = true)
+    void deleteTransactionDetailByTransactionId(@Param("id_transaction") int id_transaction);
+
+    @Query(value = "SELECT * FROM transaction_detail WHERE id_transaction = :id_transaction", nativeQuery = true)
+    List<TransactionDetail> getTransactionDetailByTransactionId(@Param("id_transaction") int id_transaction);
 }

@@ -6,12 +6,14 @@ import com.bos.transaction.model.dao.OfflineTransactionDao;
 import com.bos.transaction.model.dao.OfflineTransactionDetailDao;
 import com.bos.transaction.model.dao.OnlineTransactioinDao;
 import com.bos.transaction.model.dao.OnlineTransactionDetailDao;
+import com.bos.transaction.model.entity.TransactionDetail;
 import com.bos.transaction.model.request.OrderShippedRequest;
 import com.bos.transaction.model.response.ProductResponse;
 import com.bos.transaction.model.response.BuyerResponse;
 import com.bos.transaction.model.response.ResponseDataTransaction;
 import com.bos.transaction.model.response.ResponseDataTransactionDetail;
 import com.bos.transaction.model.response.TransactionDetailResponse;
+import com.bos.transaction.repository.ProductRepository;
 import com.bos.transaction.repository.TransactionDetailRepository;
 import com.bos.transaction.repository.TransactionRepository;
 import com.bos.transaction.repository.KelurahanRepository;
@@ -30,6 +32,8 @@ public class TransactionService {
     TransactionRepository g_transactionRepository;
     @Autowired
     TransactionDetailRepository g_transactionDetailRepository;
+    @Autowired
+    ProductRepository g_productRepository;
 
     private String getAddress(int p_address){
         String tmp_address = g_kelurahanRepository.getAddressByKelurahanId(p_address);
@@ -214,6 +218,37 @@ public class TransactionService {
             Timestamp tmp_shippingTime = new Timestamp(System.currentTimeMillis());
 
             g_transactionRepository.updateOrderShipped(p_orderShipped.getShipping_code(), tmp_shippingTime, p_orderShipped.getId_transaction());
+
+            l_output = new ResultEntity("Y", ErrorCode.BIT_000);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
+        }
+
+        return l_output;
+    }
+
+    public ResultEntity deleteTransaction(int p_transactionId){
+        ResultEntity l_output;
+        try {
+            List<TransactionDetail> tmp_transactionDetailList = g_transactionDetailRepository.getTransactionDetailByTransactionId(p_transactionId);
+
+            for (int i=0; i<tmp_transactionDetailList.size(); i++){
+                int tmp_productId = tmp_transactionDetailList.get(i).getId_product();
+                int tmp_quantity = tmp_transactionDetailList.get(i).getQuantity();
+                int tmp_stock = g_productRepository.getStockByProductId(tmp_productId);
+                int tmp_totalStock = tmp_stock + tmp_quantity;
+
+                //return stock
+                g_productRepository.updateStockByProductId(tmp_totalStock, tmp_productId);
+
+                //delete transaction detail
+                g_transactionDetailRepository.deleteById(tmp_transactionDetailList.get(i).getId_transaction_detail());
+            }
+
+            //delete transaction
+            g_transactionRepository.deleteById(p_transactionId);
 
             l_output = new ResultEntity("Y", ErrorCode.BIT_000);
 
