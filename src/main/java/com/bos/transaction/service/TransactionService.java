@@ -115,6 +115,9 @@ public class TransactionService {
             String tmp_fullAddress = tmp_getDetailList.get(0).getAddress_detail() + ", " + getAddress(tmp_getDetailList.get(0).getId_kelurahan());
             String tmp_orderTime = tmp_getDetailList.get(0).getOrder_time();
             String tmp_shippingCode = tmp_getDetailList.get(0).getShipping_code();
+            String tmp_shippingAgent = tmp_getDetailList.get(0).getShipping_Agent();
+            int tmp_status = tmp_getDetailList.get(0).getStatus();
+            int tmp_sellerId = tmp_getDetailList.get(0).getId_seller();
 
             //Set buyer
             BuyerResponse tmp_buyer = new BuyerResponse();
@@ -150,6 +153,9 @@ public class TransactionService {
             tmp_responseDataTransactionDetail.setOrder_time(tmp_orderTime.substring(0, 10));
             tmp_responseDataTransactionDetail.setAddress(tmp_fullAddress);
             tmp_responseDataTransactionDetail.setShipping_code(tmp_shippingCode);
+            tmp_responseDataTransactionDetail.setShipping_agent(tmp_shippingAgent);
+            tmp_responseDataTransactionDetail.setStatus(tmp_status);
+            tmp_responseDataTransactionDetail.setId_seller(tmp_sellerId);
             tmp_responseDataTransactionDetail.setBuyer(tmp_buyer);
             tmp_responseDataTransactionDetail.setTransaction_detail(tmp_transactionDetailResponseList);
 
@@ -249,6 +255,24 @@ public class TransactionService {
 
             //delete transaction
             g_transactionRepository.deleteById(p_transactionId);
+
+            l_output = new ResultEntity("Y", ErrorCode.BIT_000);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
+        }
+
+        return l_output;
+    }
+
+    public ResultEntity updateCompletedTransaction(int p_transactionId){
+        ResultEntity l_output;
+
+        try {
+            Timestamp tmp_confirmationTime = new Timestamp(System.currentTimeMillis());
+
+            g_transactionRepository.updateCompletedTransaction(tmp_confirmationTime, p_transactionId);
 
             l_output = new ResultEntity("Y", ErrorCode.BIT_000);
 

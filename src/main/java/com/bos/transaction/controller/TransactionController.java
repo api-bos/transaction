@@ -42,4 +42,9 @@ public class TransactionController {
     public ResultEntity deleteTransaction(@PathVariable("id_transaction") int id_transaction){
         return g_transactionService.deleteTransaction(id_transaction);
     }
+
+    @PutMapping("completedTransaction/{id_transaction}")
+    public ResultEntity updateCompletedTransaction(@PathVariable("id_transaction") int p_transactionId){
+        return g_transactionService.updateCompletedTransaction(p_transactionId);
+    }
 }

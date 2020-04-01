@@ -15,4 +15,7 @@ public interface OnlineTransactionDetailDao {
     int getQuantity();
     String getSell_price();
     String getShipping_code();
+    String getShipping_Agent();
+    int getStatus();
+    int getId_seller();
 }

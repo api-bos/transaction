@@ -31,9 +31,16 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE transaction SET shipping_code = :shipping_code, shipping_time = :shipping_time " +
+    @Query(value = "UPDATE transaction SET shipping_code = :shipping_code, shipping_time = :shipping_time, status=2 " +
             "WHERE id_transaction = :id_transaction", nativeQuery = true)
     void updateOrderShipped(@Param("shipping_code") String shipping_code,
                             @Param("shipping_time") Timestamp shipping_time,
                             @Param("id_transaction") int id_transaction);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE transaction SET confirmation_time = :confirmation_time, status=3 " +
+            "WHERE id_transaction = :id_transaction", nativeQuery = true)
+    void updateCompletedTransaction(@Param("confirmation_time") Timestamp confirmation_time,
+                                    @Param("id_transaction") int id_transaction);
 }

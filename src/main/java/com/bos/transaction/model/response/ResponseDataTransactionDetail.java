@@ -13,10 +13,13 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class ResponseDataTransactionDetail {
     private int id_transaction;
+    private int id_seller;
     private String order_time;
     private String total_payment;
     private String address;
     private String shipping_code;
+    private String shipping_agent;
+    private int status;
     private BuyerResponse buyer;
     private ArrayList<TransactionDetailResponse> transaction_detail;
 }
