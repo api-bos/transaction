@@ -17,6 +17,7 @@ public interface TransactionDetailRepository extends JpaRepository<TransactionDe
             "t.total_payment AS total_payment, t.order_time AS order_time, " +
             "p.id_product AS id_product, p.product_name AS product_name, td.quantity AS quantity, td.sell_price AS sell_price," +
             "CASE WHEN t.shipping_code IS NULL THEN '' ELSE t.shipping_code END AS shipping_code, " +
+            "CASE WHEN t.shipping_fee IS NULL THEN 0 ELSE t.shipping_fee END AS shipping_fee, " +
             "CASE WHEN t.shipping_agent IS NULL THEN '' ELSE t.shipping_agent END AS shipping_agent, " +
             "t.status AS status, " +
             "t.id_seller AS id_seller\n" +

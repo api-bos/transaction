@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 @Getter
@@ -18,6 +19,7 @@ public class ResponseDataTransactionDetail {
     private String total_payment;
     private String address;
     private String shipping_code;
+    private BigInteger shipping_fee;
     private String shipping_agent;
     private int status;
     private BuyerResponse buyer;

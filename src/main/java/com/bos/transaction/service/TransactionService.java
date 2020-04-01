@@ -20,6 +20,7 @@ import com.bos.transaction.repository.KelurahanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +116,8 @@ public class TransactionService {
             String tmp_fullAddress = tmp_getDetailList.get(0).getAddress_detail() + ", " + getAddress(tmp_getDetailList.get(0).getId_kelurahan());
             String tmp_orderTime = tmp_getDetailList.get(0).getOrder_time();
             String tmp_shippingCode = tmp_getDetailList.get(0).getShipping_code();
-            String tmp_shippingAgent = tmp_getDetailList.get(0).getShipping_Agent();
+            BigInteger tmp_shippingFee = tmp_getDetailList.get(0).getShipping_fee();
+            String tmp_shippingAgent = tmp_getDetailList.get(0).getShipping_agent();
             int tmp_status = tmp_getDetailList.get(0).getStatus();
             int tmp_sellerId = tmp_getDetailList.get(0).getId_seller();
 
@@ -153,6 +155,7 @@ public class TransactionService {
             tmp_responseDataTransactionDetail.setOrder_time(tmp_orderTime.substring(0, 10));
             tmp_responseDataTransactionDetail.setAddress(tmp_fullAddress);
             tmp_responseDataTransactionDetail.setShipping_code(tmp_shippingCode);
+            tmp_responseDataTransactionDetail.setShipping_fee(tmp_shippingFee);
             tmp_responseDataTransactionDetail.setShipping_agent(tmp_shippingAgent);
             tmp_responseDataTransactionDetail.setStatus(tmp_status);
             tmp_responseDataTransactionDetail.setId_seller(tmp_sellerId);

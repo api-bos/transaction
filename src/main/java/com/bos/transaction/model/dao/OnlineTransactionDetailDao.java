@@ -1,5 +1,7 @@
 package com.bos.transaction.model.dao;
 
+import java.math.BigInteger;
+
 public interface OnlineTransactionDetailDao {
     int getId_transaction_detail();
     int getId_transaction();
@@ -15,7 +17,8 @@ public interface OnlineTransactionDetailDao {
     int getQuantity();
     String getSell_price();
     String getShipping_code();
-    String getShipping_Agent();
+    BigInteger getShipping_fee();
+    String getShipping_agent();
     int getStatus();
     int getId_seller();
 }
