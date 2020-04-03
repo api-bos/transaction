@@ -17,6 +17,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_transaction;
+    private int id_seller;
     private int id_buyer;
     private String shipping_code;
     private double shipping_fee;
@@ -25,4 +26,5 @@ public class Transaction {
     private String order_time;
     private String total_payment;
     private int status;
+    private Timestamp confirmation_time;
 }

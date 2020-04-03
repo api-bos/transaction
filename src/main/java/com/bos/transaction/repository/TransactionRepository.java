@@ -43,4 +43,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
             "WHERE id_transaction = :id_transaction", nativeQuery = true)
     void updateCompletedTransaction(@Param("confirmation_time") Timestamp confirmation_time,
                                     @Param("id_transaction") int id_transaction);
+
+    @Query(value = "SELECT id_transaction FROM transaction WHERE order_time = :order_time", nativeQuery = true)
+    int getTransactionIdByOrderTime(@Param("order_time") Timestamp order_time);
 }

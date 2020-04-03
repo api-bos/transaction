@@ -1,13 +1,14 @@
 package com.bos.transaction.controller;
 
 import bca.bit.proj.library.base.ResultEntity;
+import com.bos.transaction.model.request.OfflineTransactionRequest;
 import com.bos.transaction.model.request.OrderShippedRequest;
 import com.bos.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bos")
+@RequestMapping(value = "/bos", produces = "application/json")
 @CrossOrigin(origins = {"*"})
 public class TransactionController {
     @Autowired
@@ -46,5 +47,10 @@ public class TransactionController {
     @PutMapping("completedTransaction/{id_transaction}")
     public ResultEntity updateCompletedTransaction(@PathVariable("id_transaction") int p_transactionId){
         return g_transactionService.updateCompletedTransaction(p_transactionId);
+    }
+
+    @PostMapping(value = "/offlineTransaction", consumes = "application/json")
+    public ResultEntity addOfflineTransaction(@RequestBody OfflineTransactionRequest p_offlineTrxRequest){
+        return g_transactionService.addOfflineTransaction(p_offlineTrxRequest);
     }
 }
