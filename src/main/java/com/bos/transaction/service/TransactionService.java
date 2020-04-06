@@ -239,6 +239,22 @@ public class TransactionService {
         return l_output;
     }
 
+    public ResultEntity cancelOrder(int p_transactionId){
+        ResultEntity l_output;
+
+        try {
+            g_transactionRepository.cancelOrder(p_transactionId);
+
+            l_output = new ResultEntity("Y", ErrorCode.BIT_000);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            l_output = new ResultEntity(e.toString(), ErrorCode.BIT_999);
+        }
+
+        return l_output;
+    }
+
     public ResultEntity deleteTransaction(int p_transactionId){
         ResultEntity l_output;
         try {
