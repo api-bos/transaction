@@ -21,4 +21,5 @@ public interface OnlineTransactionDetailDao {
     String getShipping_agent();
     int getStatus();
     int getId_seller();
+    String getVa_number();
 }

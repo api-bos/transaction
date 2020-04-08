@@ -121,6 +121,7 @@ public class TransactionService {
             String tmp_shippingAgent = tmp_getDetailList.get(0).getShipping_agent();
             int tmp_status = tmp_getDetailList.get(0).getStatus();
             int tmp_sellerId = tmp_getDetailList.get(0).getId_seller();
+            String tmp_vaNumber = tmp_getDetailList.get(0).getVa_number();
 
             //Set buyer
             BuyerResponse tmp_buyer = new BuyerResponse();
@@ -160,6 +161,7 @@ public class TransactionService {
             tmp_responseDataTransactionDetail.setShipping_agent(tmp_shippingAgent);
             tmp_responseDataTransactionDetail.setStatus(tmp_status);
             tmp_responseDataTransactionDetail.setId_seller(tmp_sellerId);
+            tmp_responseDataTransactionDetail.setVa_number(tmp_vaNumber);
             tmp_responseDataTransactionDetail.setBuyer(tmp_buyer);
             tmp_responseDataTransactionDetail.setTransaction_detail(tmp_transactionDetailResponseList);
 

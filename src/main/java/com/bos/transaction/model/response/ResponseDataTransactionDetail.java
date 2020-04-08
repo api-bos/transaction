@@ -22,6 +22,7 @@ public class ResponseDataTransactionDetail {
     private BigInteger shipping_fee;
     private String shipping_agent;
     private int status;
+    private String va_number;
     private BuyerResponse buyer;
     private ArrayList<TransactionDetailResponse> transaction_detail;
 }

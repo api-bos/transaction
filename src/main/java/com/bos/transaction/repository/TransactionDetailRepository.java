@@ -20,6 +20,7 @@ public interface TransactionDetailRepository extends JpaRepository<TransactionDe
             "CASE WHEN t.shipping_fee IS NULL THEN 0 ELSE t.shipping_fee END AS shipping_fee, " +
             "CASE WHEN t.shipping_agent IS NULL THEN '' ELSE t.shipping_agent END AS shipping_agent, " +
             "t.status AS status, " +
+            "CASE WHEN t.va_number IS NULL THEN '' ELSE t.va_number END AS va_number, " +
             "t.id_seller AS id_seller\n" +
             "FROM transaction_detail AS td\n" +
             "LEFT JOIN transaction AS t ON td.id_transaction = t.id_transaction\n" +
